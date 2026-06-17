@@ -18,15 +18,3 @@ In this project, a hierarchical control architecture is implemented:
 * **High-Level Planner:** A PPO Neural Network handles 3D spatial errors and outputs target velocities (`ActionType.VEL`).
 * **Low-Level Controller:** A classic PID controller manages the high-frequency motor mixing and attitude stabilization (at 240Hz).
 * **Cooperative Learning:** The swarm was trained using a custom **"Shared Fate" quadratic reward function**, which heavily penalizes the entire swarm if a single drone crashes, forcing cooperative altitude maintenance.
-
----
-
-
-## 🚀 How to Run the Code
-
-### 1. Installation
-Clone the repository and install the required dependencies (assuming you have `gym-pybullet-drones` configured):
-```bash
-git clone [https://github.com/leonardoricc2002/MARL_drones.git](https://github.com/leonardoricc2002/MARL_drones.git)
-cd MARL_drones
-
