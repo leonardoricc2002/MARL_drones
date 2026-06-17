@@ -18,7 +18,7 @@ class HoverAviary(BaseRLAviary):
                  gui=False,
                  record=False,
                  obs: ObservationType=ObservationType.KIN,
-                 act: ActionType=ActionType.RPM
+                 act: ActionType=ActionType.PID
                  ):
         """Initialization of a single agent RL environment.
 
@@ -98,23 +98,29 @@ class HoverAviary(BaseRLAviary):
     ################################################################################
     
     def _computeTruncated(self):
-        """Computes the current truncated value.
-
-        Returns
-        -------
-        bool
-            Whether the current episode timed out.
-
-        """
-        state = self._getDroneStateVector(0)
-        if (abs(state[0]) > 1.5 or abs(state[1]) > 1.5 or state[2] > 2.0 # Truncate when the drone is too far away
-             or abs(state[7]) > .4 or abs(state[8]) > .4 # Truncate when the drone is too tilted
-        ):
+        states = np.array([self._getDroneStateVector(i) for i in range(self.NUM_DRONES)])
+        
+        # 1. Regole base (Fuori mappa o troppo inclinati)
+        for i in range(self.NUM_DRONES):
+            state = states[i]
+            if (abs(state[0]) > 2.5 or abs(state[1]) > 2.5 or state[2] > 2.5 
+                or abs(state[7]) > 0.8 or abs(state[8]) > 0.8):
+                return True
+                
+        # 2. IL RADAR ANTI-COLLISIONE
+        pos_drone_0 = states[0][0:3]
+        pos_drone_1 = states[1][0:3]
+        distanza_tra_droni = np.linalg.norm(pos_drone_0 - pos_drone_1)
+        
+        # Se i centri dei droni sono a meno di 30 cm, consideriamo lo scontro fatale
+        if distanza_tra_droni < 0.30:
             return True
-        if self.step_counter/self.PYB_FREQ > self.EPISODE_LEN_SEC:
+            
+        # 3. Limite di tempo
+        if self.step_counter / self.PYB_FREQ > self.EPISODE_LEN_SEC:
             return True
-        else:
-            return False
+            
+        return False
 
     ################################################################################
     
