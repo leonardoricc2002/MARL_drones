@@ -21,19 +21,6 @@ In this project, a hierarchical control architecture is implemented:
 
 ---
 
-## 🔬 Aerodynamic Discoveries & Visual Proof
-
-*(👉 **YOUR TASK:** Insert a GIF of the swarm simulation here! Save the image as `swarm.gif` in your repo and uncomment the line below)*
-During the stress-testing phase with stochastic wind (Gaussian noise $\mu=0, \sigma=0.002$), the simulation captured highly realistic aerodynamic phenomena:
-
-1. **The Ceiling Effect & Cascade Degradation:** The top drone acts as a physical barrier, accelerating the intake airflow for the drones below. This creates a low-pressure zone, generating a net upward suction force that causes the lower drones to naturally drift above their theoretical setpoints.
-2. **Wake Deflection & Phase Lag:** When the Leader tilts at 40° to fight a lateral gust, its powerful turbulent slipstream is fired diagonally onto the Followers. This creates a visually chaotic "zig-zag" misalignment. This is not a tracking bug, but the physical proof of drones surviving in highly asymmetrical force fields (dirty air).
-
-### Telemetry Analysis
-*(👉 **YOUR TASK:** Insert the 4-panel graph we generated from `analyze.py` here! Save it as `telemetry.png` and uncomment the line below)*
-As shown in the telemetry, the algorithm discovers a Pareto-optimal equilibrium: the Leader absorbs the severe kinematic penalty to fight the external wind, allowing the Followers to "surf" the lateral displacement and maintain a near-perfect vertical error ($< 0.05$ cm).
-
----
 
 ## 🚀 How to Run the Code
 
@@ -42,4 +29,4 @@ Clone the repository and install the required dependencies (assuming you have `g
 ```bash
 git clone [https://github.com/leonardoricc2002/MARL_drones.git](https://github.com/leonardoricc2002/MARL_drones.git)
 cd MARL_drones
-pip install -r requirements.txt
+
