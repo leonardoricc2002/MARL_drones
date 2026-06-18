@@ -18,3 +18,13 @@ In this project, a hierarchical control architecture is implemented:
 * **High-Level Planner:** A PPO Neural Network handles 3D spatial errors and outputs target velocities (`ActionType.VEL`).
 * **Low-Level Controller:** A classic PID controller manages the high-frequency motor mixing and attitude stabilization (at 240Hz).
 * **Cooperative Learning:** The swarm was trained using a custom **"Shared Fate" quadratic reward function**, which heavily penalizes the entire swarm if a single drone crashes, forcing cooperative altitude maintenance.
+
+## SIMULATION
+To run simulation for 1 drone 
+```
+python learn.py
+```
+Instead , for 3 drones 
+```
+python learn.py --multiagent true
+```
